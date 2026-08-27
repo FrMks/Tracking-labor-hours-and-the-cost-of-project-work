@@ -1,12 +1,11 @@
 using CSharpFunctionalExtensions;
 using Shared;
+using TimeTrackingService.Domain;
 
 namespace TimeTrackingService.Domain.Employees.ValueObjects;
 
 public sealed record FullName
 {
-    private const int MaxPartLength = 100;
-
     private FullName(string lastName, string firstName, string? patronymic)
     {
         LastName = lastName;
@@ -63,11 +62,11 @@ public sealed record FullName
         }
 
         var normalizedValue = value.Trim();
-        if (normalizedValue.Length > MaxPartLength)
+        if (normalizedValue.Length > LengthConstants.LENGTH100)
         {
             return Error.Validation(
                 $"employee.full-name.{partName}.length.invalid",
-                $"{partName} cannot be longer than {MaxPartLength} characters.");
+                $"{partName} cannot be longer than {LengthConstants.LENGTH100} characters.");
         }
 
         return Result.Success<string, Error>(normalizedValue);
@@ -81,11 +80,11 @@ public sealed record FullName
         }
 
         var normalizedValue = value.Trim();
-        if (normalizedValue.Length > MaxPartLength)
+        if (normalizedValue.Length > LengthConstants.LENGTH100)
         {
             return Error.Validation(
                 $"employee.full-name.{partName}.length.invalid",
-                $"{partName} cannot be longer than {MaxPartLength} characters.");
+                $"{partName} cannot be longer than {LengthConstants.LENGTH100} characters.");
         }
 
         return Result.Success<string?, Error>(normalizedValue);

@@ -31,23 +31,17 @@ public sealed class Employee
         FullName fullName,
         DepartmentName department)
     {
-        ArgumentNullException.ThrowIfNull(id);
-        ArgumentNullException.ThrowIfNull(fullName);
-        ArgumentNullException.ThrowIfNull(department);
-
         return Result.Success<Employee, Error>(new Employee(id, fullName, department));
     }
 
     public UnitResult<Error> Rename(FullName fullName)
     {
-        ArgumentNullException.ThrowIfNull(fullName);
         FullName = fullName;
         return UnitResult.Success<Error>();
     }
 
     public UnitResult<Error> ChangeDepartment(DepartmentName department)
     {
-        ArgumentNullException.ThrowIfNull(department);
         Department = department;
         return UnitResult.Success<Error>();
     }
@@ -56,8 +50,6 @@ public sealed class Employee
         HourlyRate rate,
         DateOnly effectiveFrom)
     {
-        ArgumentNullException.ThrowIfNull(rate);
-
         var existingIndex = _hourlyRates.FindIndex(period => period.EffectiveFrom == effectiveFrom);
         var period = new HourlyRatePeriod(rate, effectiveFrom);
 

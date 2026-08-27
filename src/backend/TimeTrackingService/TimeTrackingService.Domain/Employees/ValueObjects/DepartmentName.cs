@@ -1,12 +1,11 @@
 using CSharpFunctionalExtensions;
 using Shared;
+using TimeTrackingService.Domain;
 
 namespace TimeTrackingService.Domain.Employees.ValueObjects;
 
 public sealed record DepartmentName
 {
-    private const int MaxLength = 150;
-
     private DepartmentName(string value)
     {
         Value = value;
@@ -24,11 +23,11 @@ public sealed record DepartmentName
         }
 
         var normalizedValue = value.Trim();
-        if (normalizedValue.Length > MaxLength)
+        if (normalizedValue.Length > LengthConstants.LENGTH150)
         {
             return Error.Validation(
                 "employee.department.length.invalid",
-                $"Department cannot be longer than {MaxLength} characters.");
+                $"Department cannot be longer than {LengthConstants.LENGTH150} characters.");
         }
 
         return Result.Success<DepartmentName, Error>(new DepartmentName(normalizedValue));
