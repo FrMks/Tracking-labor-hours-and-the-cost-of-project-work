@@ -15,6 +15,8 @@ public sealed class ClosedPeriod
 
     public int Month { get; private set; }
 
+    public bool Contains(DateOnly date) => date.Year == Year && date.Month == Month;
+
     public static Result<ClosedPeriod, Error> Create(int year, int month)
     {
         if (year is < 1 or > 9999)

@@ -15,6 +15,9 @@ public sealed record ProjectPeriod
 
     public DateOnly? EndDate { get; }
 
+    public bool Contains(DateOnly date) =>
+        date >= StartDate && (!EndDate.HasValue || date <= EndDate.Value);
+
     public static Result<ProjectPeriod, Error> Create(
         DateOnly startDate,
         DateOnly? endDate)
